@@ -225,10 +225,11 @@ function solveAll(){
         var results = solve( init(grid), [], false, 0)
         var solution = results[1]
 
-        console.log("solution ==>", solution.length)
-        console.log("depth ==>", results[2])
-        if(solution.length > 0){
+        if(solved(results[0]) && solution.length > 0){
+            console.log("solution ==>", solution.length)
+            console.log("depth ==>", results[2])
             revealMoves(solution)
+            
         } else {
             flashGrid()
             enable()
