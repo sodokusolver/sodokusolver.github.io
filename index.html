@@ -1,0 +1,142 @@
+<html>
+    <head>
+    <style type="text/css" media="screen">
+
+{ margin: 0; padding: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+body { background-color: #fff;
+       color: #333;
+       font: 14px/20px "HelveticaNeue-Light", "HelveticaNeue", Helvetica, Arial, sans-serif;
+     }
+
+h1 {
+    text-align : center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+table {
+    align : center;
+    border-collapse: collapse;
+    border:2px solid #000000;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table td{
+    border:1px solid #000000;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+}
+
+.div-bottom {
+    border-bottom:2px solid #000000 !important;
+}
+
+.div-right {
+    border-right:2px solid #000000 !important;
+}
+
+.invalid {
+    background-color: #EDC7C8 !important;
+}
+
+.alert {
+    background-color: #EDC7C8;
+}
+
+.move {
+    background-color: #CFEDD0;
+}
+
+.btn {
+  -webkit-border-radius: 4;
+  -moz-border-radius: 4;
+  border-radius: 4px;
+  font-family: Georgia;
+  color: #ffffff;
+  font-size: 20px;
+  background: #6b99b8;
+  padding: 5px 10px 5px 10px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #558bad;
+  text-decoration: none;
+}
+
+#buttons {
+    width: 50%;
+    margin: 0 auto;
+    padding-top: 10px;
+    text-align: center;
+}
+
+</style>
+
+
+</head>
+    <body>
+    <h1>sodoku solver</h1>
+      <table id="puzzle-grid">
+
+      <col id="col-0" />
+      <col id="col-1" />
+      <col id="col-2" class="div-right"/>
+      <col id="col-3" />
+      <col id="col-4" />
+      <col id="col-5" class="div-right"/>
+      <col id="col-6" />
+      <col id="col-7" />
+      <col id="col-8" />
+
+      <tr id="row-0">
+        <td id="0-0"></td><td id="1-0"></td><td id="2-0"></td> <td id="3-0"></td><td id="4-0"></td><td id="5-0"></td> <td id="6-0"></td><td id="7-0"></td><td id="8-0"></td>
+      </tr>
+      <tr id="row-1">
+        <td id="0-1"></td><td id="1-1"></td><td id="2-1"></td> <td id="3-1"></td><td id="4-1"></td><td id="5-1"></td> <td id="6-1"></td><td id="7-1"></td><td id="8-1"></td>
+      </tr>
+      <tr id="row-2" class="div-bottom">
+        <td id="0-2"></td><td id="1-2"></td><td id="2-2"></td> <td id="3-2"></td><td id="4-2"></td><td id="5-2"></td> <td id="6-2"></td><td id="7-2"></td><td id="8-2"></td>
+      </tr>
+
+      <tr id="row-3">
+        <td id="0-3"></td><td id="1-3"></td><td id="2-3"></td> <td id="3-3"></td><td id="4-3"></td><td id="5-3"></td> <td id="6-3"></td><td id="7-3"></td><td id="8-3"></td>
+      </tr>
+      <tr id="row-4">
+        <td id="0-4"></td><td id="1-4"></td><td id="2-4"></td> <td id="3-4"></td><td id="4-4"></td> <td id="5-4"></td><td id="6-4"></td><td id="7-4"></td><td id="8-4"></td>
+      </tr>
+      <tr id="row-5" class="div-bottom">
+        <td id="0-5"></td><td id="1-5"></td><td id="2-5"></td> <td id="3-5"></td><td id="4-5"></td><td id="5-5"></td> <td id="6-5"></td><td id="7-5"></td><td id="8-5"></td>
+      </tr>
+
+      <tr id="row-6">
+        <td id="0-6"></td><td id="1-6"></td><td id="2-6"></td> <td id="3-6"></td><td id="4-6"></td><td id="5-6"></td> <td id="6-6"></td><td id="7-6"></td><td id="8-6"></td>
+      </tr>
+      <tr id="row-7">
+        <td id="0-7"></td><td id="1-7"></td><td id="2-7"></td> <td id="3-7"></td><td id="4-7"></td><td id="5-7"></td> <td id="6-7"></td><td id="7-7"></td><td id="8-7"></td>
+      </tr>
+      <tr id="row-8">
+        <td id="0-8"></td><td id="1-8"></td><td id="2-8"></td> <td id="3-8"></td><td id="4-8"></td><td id="5-8"></td> <td id="6-8"></td><td id="7-8"></td><td id="8-8"></td>
+      </tr>
+
+</table>
+
+    <div id="buttons">
+      <input id="clear" class="btn" type="button" name="clear" value="Clear"/>    
+      <input id="save" class="btn" type="button" name="save" value="Save"/>
+      <input id="load" class="btn" type="button" name="load" value="Load"/>
+      <input id="solveone" class="btn" type="button" name="solveone" value="Solve One"/>
+      <input id="solveall" class="btn" type="button" name="Solveall" value="Solve All"/>      
+    </div>
+
+</body>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="sodoku.js"></script>
+    <script src="interface.js"></script>
+
+</html>
