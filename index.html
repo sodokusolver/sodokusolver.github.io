@@ -16,6 +16,12 @@ h1 {
     margin-top: 10px;
 }
 
+div {
+    text-align : center;
+}
+
+ul { list-style: none; }
+
 table {
     align : center;
     border-collapse: collapse;
@@ -128,17 +134,30 @@ table td{
 
 </table>
 
-    <div id="buttons">
+      <div id="buttons">
+      <input id="solveone" class="btn" type="button" name="solveone" value="Solve One"/>
+      <input id="solveall" class="btn" type="button" name="Solveall" value="Solve All"/>              
       <input id="clear" class="btn" type="button" name="clear" value="Clear"/>    
       <input id="save" class="btn" type="button" name="save" value="Save"/>
       <input id="load" class="btn" type="button" name="load" value="Load"/>
-      <input id="solveone" class="btn" type="button" name="solveone" value="Solve One"/>
-      <input id="solveall" class="btn" type="button" name="Solveall" value="Solve All"/>      
+    </div>
+
+    <div>
+      <ul>
+        <li>Use ↑, ↓, ←, → or Tab to navigate.</li>
+        <li>Enter <i>1-9</i> in the squares.</li>
+        <li><i>Space, Delete and Backspace</i> will empty the square.</li>
+        <li><b>Solve One</b> button will fill one square, if possible.</li>
+        <li><b>Solve All</b> button will fill all squares, if possible.</li>            
+        <li><b>Clear</b> button will empty all squares.</li>
+        <li><b>Save</b> button will save the current squares.</li>
+        <li><b>Load</b> button will load the saved squares.</li>
+      </ul>
     </div>
 
 </body>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
     <script src="sodoku.js"></script>
     <script src="interface.js"></script>
 
