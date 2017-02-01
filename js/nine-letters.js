@@ -101,6 +101,6 @@ $(function(){
 
     startTime = Date.now()
     console.log("loading...")
-    $.get("wordsEn.txt", loadWords)
+    $.get("data/wordsEn.txt", loadWords)
 
 })
