@@ -14,7 +14,7 @@ This uses the search method, so it will fail and give up when there is no soluti
 
 # Nine Letters
 
-[Nine Letters here](https://sodokusolver.github.io/nine-letters.html
+[Nine Letters here](https://sodokusolver.github.io/nine-letters.html)
 
 Nine letters is a newspaper word game where you have to think of as many words as possible using the nine letters.
 The center letter must always be used and the other letters can only be used once. The found words should be 4 or more letters.
