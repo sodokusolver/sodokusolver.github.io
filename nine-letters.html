@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="css/common.css" />
+    <style type="text/css" media="screen">
+
+.help ul { list-style: none; }
+
+.center-square {
+   background: #ababab;
+}
+
+.intro {
+    width: 250px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+    text-align: center;  
+}
+
+#results {
+    max-width: 250px;
+    margin: 0 auto;
+    text-align: left;  
+}
+
+</style>
+
+
+</head>
+    <body>
+      <h1>nine letters</h1>
+      <div class="intro">Find words of <i>four</i> letters or more, always using the center letter but using each letter at most once.</div>
+      <table id="puzzle-grid">
+
+      <col id="col-0" />
+      <col id="col-1" />
+      <col id="col-2" />
+
+      <tr id="row-0">
+        <td id="0-0">Y</td>
+        <td id="1-0">L</td>
+        <td id="2-0">H</td>
+      </tr>
+      <tr id="row-1">
+        <td id="0-1">F</td>
+        <td id="1-1" class="center-square">I</td>
+        <td id="2-1">J</td>
+      </tr>
+      <tr id="row-2">
+        <td id="0-2">E</td>
+        <td id="1-2">L</td>
+        <td id="2-2">S</td>
+      </tr>
+
+</table>
+
+      <div id="buttons">
+        <input id="search" class="btn" type="button" name="search" value="Search"/>
+      </div>
+
+    <div class="help">
+      <ul>
+        <li>Use ↑, ↓, ←, → or Tab to navigate.</li>
+        <li>Enter <i>A-Z</i> in the squares.</li>
+        <li><i>Space, Delete and Backspace</i> will empty the square.</li>
+        <li><b>Search</b> button will display matching words.</li>
+      </ul>
+    </div>
+    <div id="results"></div>
+</body>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/common-ui.js"></script>    
+    <script src="js/nine-letters.js"></script>
+    <script src="js/nine-letters-ui.js"></script>    
+
+</html>

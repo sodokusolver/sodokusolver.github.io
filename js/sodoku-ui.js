@@ -1,20 +1,3 @@
-function getGrid(){
-    var grid = []
-    for(var y = 0; y < 9; ++y){
-        for(var x = 0; x < 9; ++x){
-            var id = x+"-"+y
-            var cell = document.getElementById( id )
-            var val = parseInt(cell.textContent)
-            if(val){
-                grid.push( val )
-            } else {
-                grid.push( 0 )
-            }
-        }
-    }
-    return grid
-}
-
 function setGrid(puzzle){
     for(var x = 0; x < 9; ++x){
         for(var y = 0; y < 9; ++y){
@@ -30,110 +13,12 @@ function setGrid(puzzle){
     }
 }
 
-var ZERO = "0".charCodeAt(0)
-var NINE = "9".charCodeAt(0)
-var BACKSPACE = 8
-var TAB = 9
-var RETURN = 13
-var SPACE = 32
-var LEFT = 37
-var UP = 38
-var RIGHT = 39
-var DOWN = 40
-var DEL = 46
-
-// Queue of validation events
-var queue = []
-
-/*
-  Focus next cell going to next row if required.
-*/
-function focusNext(that){
-    var nextCell = that.nextAll(".cell:first")
-    if(nextCell.length){
-        nextCell.focus()
-    } else {
-        nextCell = that.closest("tr").next().children(".cell:first").focus()
-        nextCell.focus()
-    }
-}
-
-/*
-  Focus previous cell going to previous row if required.
-*/
-function focusPrev(that){
-    var prevCell = that.prevAll(".cell:first")
-    if(prevCell.length){
-        prevCell.focus()
-    } else {
-        prevCell = that.closest("tr").prev().children(".cell:last").focus()
-        prevCell.focus()
-    }
-}
-
-/*
-  Handle an arrow key, focussing up or down, left or right.
-*/
-function focusDirection(event,key){
-    var id = $( event.currentTarget ).attr("id")
-    var coords = id.split("-" )
-    var x = parseInt(coords[0]), y = parseInt(coords[1])
-    switch(key){
-    case UP:
-        y = (y - 1 >= 0) ? y - 1 : y
-        break;
-    case DOWN:
-        y = (y + 1 < 9) ? y + 1 : y
-        break;
-    case LEFT:
-        x = (x - 1 >= 0) ? x - 1 : x
-        break;
-    case RIGHT:
-        x = (x + 1 < 9) ? x + 1 : x
-        break;
-    }
-    $("#" + x + "-" + y).focus()
-}
-
-function gridKeyHandler(event){
-
-    var k = event.keyCode || event.charCode
-    if(k == TAB) return
-
-    event.preventDefault()
-
-    if(k > ZERO && k <= NINE){
-        $( event.currentTarget ).html( event.key )
-
-    } else if(k == ZERO || k == SPACE ) {
-        $( event.currentTarget ).html("")
-        focusNext($(this))
-
-    } else if(k == RETURN ) {
-        focusNext($(this))
-
-    } else if(k == BACKSPACE ) {
-        // Backspace will clear and focus previous square
-        $( event.currentTarget ).html("")
-        focusPrev($(this))
-
-    } else if(k == DEL) {
-        // DEL clears current square
-        $( event.currentTarget ).html("")
-
-    } else if(k == UP || k == DOWN || k == LEFT || k == RIGHT) {
-        focusDirection(event, k)
-    }
-
-    queue.push(k)
-}
-
 /*
   Validate the grid for illegal moves returning true when valid
 */
 function validate(){
 
-    var grid = getGrid()
+    var grid = getGrid(9,9)
     var errorCoords = verify( init(grid) )
     var isValid = true
 
@@ -153,29 +38,20 @@ function validate(){
     return isValid
 }
 
+// Queue of key events to validate
+var queue = []
+
+// To use as a "slot"
+function getQueue(){
+    return queue
+}
+
 function validator(){
     if(queue.length > 0){
         queue = []
         validate()
     }
     setTimeout(validator,50)
-}
-
-function flash(clazz){
-    var delay = 150
-    var elms = $("." + clazz)
-    elms.toggleClass(clazz)
-    setTimeout(function(){ elms.toggleClass(clazz); }, delay)
-    setTimeout(function(){ elms.toggleClass(clazz); }, delay * 2)
-    setTimeout(function(){ elms.toggleClass(clazz); }, delay * 3)
-}
-
-function flashGrid(){
-    var delay = 150
-    var puzzle = $("#puzzle-grid")
-    puzzle.addClass("alert")
-    flash("alert")
-    setTimeout(function(){ puzzle.toggleClass("alert"); }, delay * 4)
 }
 
 function solveOne(){
@@ -274,6 +150,16 @@ function disable(){
     $("#clear").prop("disabled",true)        
 }
 
+
+function acceptDigits(event){
+    var k = event.keyCode || event.charCode
+    var result = null
+    if(k > ZERO && k <= NINE){
+        result = event.key
+    }
+    return result
+}
+
 $(function(){
 
     setGrid(hard4)
@@ -281,7 +167,7 @@ $(function(){
     $("#puzzle-grid tr td").attr("contenteditable","true")
     $("#puzzle-grid tr td").addClass("cell")
 
-    $(".cell").keydown(gridKeyHandler)
+    $(".cell").keydown(gridKeyHandlerFactory(acceptDigits, getQueue))
 
     $("#solveone").click(solveOne)
     $("#solveall").click(solveAll)
