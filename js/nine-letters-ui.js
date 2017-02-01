@@ -54,7 +54,7 @@ function renderResults(results){
         var html = "<ol>"
         for(var i = 0; i < results.length; ++i){
             var word = results[i]
-            html += '<li><a href="http://www.thefreedictionary.com/'+ word +'">' + word + '</a></li>'            
+            html += '<li><a target="_blank" href="http://www.thefreedictionary.com/'+ word +'">' + word + '</a></li>'            
         }
         html += "</ol>"
 
@@ -65,7 +65,7 @@ function renderResults(results){
 function searchHandler(){
 
     disable()
-    var grid = getGrid()
+    var grid = getGrid(3,3)
     if(!validate(grid)){
         flashGrid()
         
