@@ -48,37 +48,23 @@ function sortGrid(grid){
     return sorted
 }
 
-function renderResults(results){    
-    if(results && results.length > 0){
-        console.log( results )
-        var html = "<ol>"
-        for(var i = 0; i < results.length; ++i){
-            var word = results[i]
-            html += '<li><a target="_blank" href="http://www.thefreedictionary.com/'+ word +'">' + word + '</a></li>'            
-        }
-        html += "</ol>"
-
-        $("#results").html(html)
-    }
-}
-
 function searchHandler(){
 
     disable()
     var grid = getGrid(3,3)
     if(!validate(grid)){
         flashGrid()
-        
+
     } else {
         var sorted = sortGrid(grid)
-        var results = search(sorted)
+        var results = searchAnagrams(sorted)
         if(results && results.length > 0){
             renderResults(results)
         } else {
             flashGrid()
         }
     }
-    
+
     enable()
 }
 
@@ -90,21 +76,14 @@ function disable(){
     $("#search").prop("disabled",true)
 }
 
-function acceptUpperLetters(event){
-    var k = event.keyCode || event.charCode
-    var result = null
-    if(k >= LOWER_A && k <= LOWER_Z || k >= UPPER_A && k <= UPPER_Z){
-        result = event.key.toUpperCase()
-    }
-    return result
-}
-    
 $(function(){
 
     $("#puzzle-grid tr td").attr("contenteditable","true")
     $("#puzzle-grid tr td").addClass("cell")
 
-    $(".cell").keydown(gridKeyHandlerFactory(acceptUpperLetters))
+    $(".cell").keydown(gridKeyHandlerFactory(3, 3, {
+        "accept" : acceptUpperLetters
+    }))
 
     $("#search").click(searchHandler)
 

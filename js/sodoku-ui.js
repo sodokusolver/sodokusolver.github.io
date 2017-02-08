@@ -105,7 +105,7 @@ function solveAll(){
             console.log("solution ==>", solution.length)
             console.log("depth ==>", results[2])
             revealMoves(solution)
-            
+
         } else {
             flashGrid()
             enable()
@@ -147,7 +147,7 @@ function disable(){
     $("#solveall").prop("disabled",true)
     $("#save").prop("disabled",true)
     $("#load").prop("disabled",true)
-    $("#clear").prop("disabled",true)        
+    $("#clear").prop("disabled",true)
 }
 
 
@@ -167,7 +167,10 @@ $(function(){
     $("#puzzle-grid tr td").attr("contenteditable","true")
     $("#puzzle-grid tr td").addClass("cell")
 
-    $(".cell").keydown(gridKeyHandlerFactory(acceptDigits, getQueue))
+    $(".cell").keydown(gridKeyHandlerFactory(9, 9, {
+        "accept" : acceptDigits,
+        "queue" : getQueue
+    }))
 
     $("#solveone").click(solveOne)
     $("#solveall").click(solveAll)

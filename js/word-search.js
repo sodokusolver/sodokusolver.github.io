@@ -46,21 +46,21 @@ function prettyQueries(queries){
 }
 
 /*
-  Apply and unify constraints in the queries. 
+  Apply and unify constraints in the queries.
 */
 function applyConstraints(constraints, queries){
     var map = {}
     var result = copyQueries(queries)
     for(var i = 0; i < constraints.length; ++i){
         map[constraints[i][0]] = constraints[i][1]
-        
+
     }
     for(var j = 0; j < result.length; ++j){
         var query = result[j]
         for(var k = 0; query[k]; ++k){
             var constraint = query[k]
             var letter = map[constraint[0]]
-            
+
             if(letter) {
                 constraint[1] = letter
             }
@@ -70,7 +70,7 @@ function applyConstraints(constraints, queries){
 }
 
 /*
-  Concatenate query as complete word 
+  Concatenate query as complete word
 */
 function asWord(query){
     var word = ""
@@ -127,7 +127,7 @@ function validQueries(queries){
             valid = false
             break
         }
-    }    
+    }
     return valid
 }
 
@@ -140,12 +140,12 @@ function validQueries(queries){
 
 */
 function solve(queries, depth, thinkStart){
-        
+
     if(!depth) depth = 0
     if(!thinkStart) thinkStart = Date.now()
 
     if(depth > 0 && thinkStart + 10000 < Date.now()){
-        return null 
+        return null
     }
 
     var result = null
@@ -155,17 +155,17 @@ function solve(queries, depth, thinkStart){
 
     if(matches.length <= 0){
         console.log(" no match")
-        
+
     } else {
         var match = null, query = null
         var toSearch = matches.slice()
-            
+
         while(toSearch.length > 0){
- 
+
             var rand = Math.floor(Math.random() * toSearch.length)
             var choice = toSearch[rand]
             toSearch = toSearch.slice(0,rand).concat(toSearch.slice(rand+1))
-            
+
             var constraints = createQuery(seedQuery, choice)
             if(copy.length == 0){
                 result = [ constraints ]
@@ -187,7 +187,7 @@ function solve(queries, depth, thinkStart){
     if(depth == 0){
         console.log("solve in:", (Date.now() - thinkStart) / 1000, "s")
     }
-    
+
     return result
 }
 
@@ -226,7 +226,7 @@ function verifyQuery(query, word){
                     var rsup = rconstraint[0]
                     var rcl = rconstraint[1]
                     var rwl = word.charAt(j)
-                    if( sup == rsup && wl != rwl){ 
+                    if( sup == rsup && wl != rwl){
                         valid = false
                         break outer
                     }
@@ -339,7 +339,7 @@ function verifyLetterCount(word, letters){
 function searchAnagrams(letters){
 
     var startTime = Date.now()
-    
+
     var solutions = []
     for(var i = 0; i < words.length; ++i){
 
@@ -357,7 +357,7 @@ function searchAnagrams(letters){
     console.log("searched in:", (endTime - startTime) / 1000, "s"  )
     console.log( solutions.length, solutions )
 
-    solutions = solutions.sort(function(a, b){        
+    solutions = solutions.sort(function(a, b){
         return b.length - a.length;
     });
 
@@ -409,7 +409,7 @@ var test5x5B = [
     [  [2, 'c'],  [7, '?'], [12, 'b'], [17, '?'], [18, 'a'] ],
     [  [3, '?'],  [8, 's'], [13, '?'], [18, 'a'], [23, '?'] ],
     [  [4, 'r'],  [9, '?'], [ 8, 's'], [19, '?'], [16, 't'] ],
-    [  [5, '?'], [10, 'r'], [15, '?'], [16, 't'], [24, '?'] ] 
+    [  [5, '?'], [10, 'r'], [15, '?'], [16, 't'], [24, '?'] ]
 ]
 
 
@@ -432,4 +432,3 @@ function loadWords(rawData){
 }
 
 $(function(){ $.get("../data/aspell-acceptable.txt", loadWords); })
-

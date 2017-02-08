@@ -11,10 +11,10 @@ function getGridQueries(){
             if(seen[val]) index = seen[val]
             else seen[val] = index
             cell.attr("index", index)
-        } 
+        }
         query.push([ index, val])
     }
-    
+
     // across
     for(var y = 0; y < 5; ++y){
         var query = []
@@ -28,7 +28,7 @@ function getGridQueries(){
         down.push(query)
         for(var y = 0; y < 5; ++y) addCell(x, y, query)
     }
-    
+
     return across.concat(down)
 }
 
@@ -59,16 +59,16 @@ function solveHandler(event){
     disable()
     var queries = getGridQueries()
     console.log("queries:", prettyQueries( queries ) )
-    
+
     var solved = solve( queries )
     console.log("solution:", prettyQueries( solved ) )
     if(solved){
-        applySolution( solved ) 
-        showWords( solved ) 
+        applySolution( solved )
+        showWords( solved )
     } else {
         flashGrid()
     }
-    
+
     enable()
 }
 
@@ -89,7 +89,7 @@ function initGrid(){
         "accept" : acceptUpperLetters
     }))
     $("#solve").click(solveHandler)
-    
+
     var index = 0
     for(var y = 0; y < 5; ++y){
         for(var x = 0; x < 5; ++x){

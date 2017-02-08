@@ -707,7 +707,7 @@ function solve(state, solution, interactive, depth){
             copyState = result[0]
             copySolution = result[1]
             copyDepth = result[2]
-            break outer 
+            break outer
         }
     }
     return [copyState, copySolution, copyDepth]

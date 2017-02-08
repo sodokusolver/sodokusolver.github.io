@@ -124,36 +124,36 @@ function gridKeyHandlerFactory(dimx, dimy, options){
         }
 
         var accept = acceptfn(event)
-        if(accept != null){            
+        if(accept != null){
             if(contentfn){
                 contentfn(event.currentTarget, accept)
             } else {
                 $( event.currentTarget ).html( accept )
             }
             $( event.currentTarget ).focus()
-            
+
         } else if(k == SPACE ) {
             $( event.currentTarget ).html("")
             focusNext($(this))
-            
+
         } else if(k == RETURN ) {
             focusNext($(this))
-            
+
         } else if(k == BACKSPACE ) {
             // Backspace will clear and focus previous square
             $( event.currentTarget ).html("")
             focusPrev($(this))
-            
+
         } else if(k == DEL) {
             // DEL clears current square
             $( event.currentTarget ).html("")
-            
+
         } else if(k == UP || k == DOWN || k == LEFT || k == RIGHT) {
             focusDirection(dimx, dimy, event, k)
-            
+
         }
     }
-    
+
     if(queuefn) {
         queuefn().push(k)
     }
