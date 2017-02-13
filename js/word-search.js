@@ -155,7 +155,7 @@ function solve(queries, unique, sortfn, known, depth, thinkStart){
     if(!unique) unique = false
     if(!thinkStart) thinkStart = Date.now()
 
-    if(depth > 0 && thinkStart + 10000 < Date.now()){
+    if(depth > 0 && thinkStart + 20000 < Date.now()){
         return null
     }
 
