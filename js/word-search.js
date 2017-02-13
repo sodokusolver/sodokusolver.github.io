@@ -97,7 +97,7 @@ function validWord(query){
     if(isComplete(query)){
         var word = ""
         for(var k = 0; k < query.length; ++k) word += query[k][1]
-        if(wordMap[word]) validWord = true
+        if(WORD_SET[word]) validWord = true
     }
     return validWord
 }
@@ -131,17 +131,28 @@ function validQueries(queries){
     return valid
 }
 
+function knownConstraints(queries){
+    var map = {}
+    for(var i = 0; i < queries.length; ++i){
+        var query = queries[i]
+        for(var j = 0; j < query.length; ++j){
+            var part = query[j]
+            if(part[1] != "?"){
+                map[part[1]] = part[0]
+            }
+        }
+    }
+    return map
+}
+
 /*
   Find solution for all word constraints.
 
-  1. Sort by most restrictive query to help optimise the search
-  2. Search for words matching the first constraint and create a set
-  3. For each word in the list apply the constraints to the rest of the queries
-
 */
-function solve(queries, depth, thinkStart){
+function solve(queries, unique, sortfn, known, depth, thinkStart){
 
     if(!depth) depth = 0
+    if(!unique) unique = false
     if(!thinkStart) thinkStart = Date.now()
 
     if(depth > 0 && thinkStart + 10000 < Date.now()){
@@ -150,11 +161,14 @@ function solve(queries, depth, thinkStart){
 
     var result = null
     var copy = copyQueries(queries)
+    if(sortfn) copy.sort(sortfn)
+    if(!known) known = knownConstraints(copy)
+
     var seedQuery = copy.shift() // head::rest
-    var matches = search(seedQuery)
+    var matches = search(seedQuery, unique, known)
 
     if(matches.length <= 0){
-        console.log(" no match")
+        return null
 
     } else {
         var match = null, query = null
@@ -173,8 +187,9 @@ function solve(queries, depth, thinkStart){
             } else {
                 var applied = applyConstraints(constraints, copy)
                 if(validQueries(applied)){
+                    var newKnown = merge(known, constraints)
                     // Apply constraints to the rest of the queries and solve
-                    var solved = solve( applied, depth+1, thinkStart)
+                    var solved = solve( applied, unique, sortfn, newKnown, depth+1, thinkStart)
                     if(solved){
                         result = [ constraints ].concat( solved )
                         break;
@@ -191,6 +206,22 @@ function solve(queries, depth, thinkStart){
     return result
 }
 
+function merge(mapa, constraints){
+    var merged = {}
+    if(mapa){
+        for(key in mapa) {
+            merged[key] = mapa[key]
+        }
+    }
+    for(var i = 0; i < constraints.length; ++i){
+        var part = constraints[i]
+        if(part[1] != "?"){
+            merged[part[1]] = part[0]
+        }
+    }
+    return merged
+}
+
 /*
   Create a query with the filled constraints of the seedQuery
 */
@@ -203,13 +234,14 @@ function createQuery(seedQuery, match){
 }
 
 /*
-  Verify the query and matching word are valid
+  Verify the query and matching word are valid.
 */
-function verifyQuery(query, word){
+function verifyQuery(query, word, unique, known){
     var valid = true
     if(query.length != word.length){
         valid = false
     } else {
+        var local = {}
         outer:
         for(var i = 0; i < query.length; i++){
             var constraint = query[i]
@@ -219,22 +251,56 @@ function verifyQuery(query, word){
             if(cl != '?' && cl != wl){
                 valid = false
                 break outer
+
+            } else if(unique && known &&
+                      (known[wl] && known[wl] != sup ||
+                       local[wl] && local[wl] != sup )) {
+                valid = false
+                break outer
+
             } else {
+                local[wl] = sup
                 // test against the rest
                 for(var j = i+1; j < query.length; ++j){
                     var rconstraint = query[j]
                     var rsup = rconstraint[0]
                     var rcl = rconstraint[1]
                     var rwl = word.charAt(j)
-                    if( sup == rsup && wl != rwl){
+                    if( sup == rsup && wl != rwl ){
                         valid = false
                         break outer
+
+                    } else if(unique && known &&
+                              (known[rwl] && known[rwl] != rsup ||
+                               local[rwl] && local[rwl] != rsup )) {
+                        valid = false
+                        break outer
+
                     }
                 }
             }
         }
     }
+
     return valid
+}
+
+/*
+  Validate the list of constraints can generate invalid words.
+  i.e. partial words can be verified that there is at least one match
+
+  returns invalid words or empty list
+*/
+function validateWords(queries){
+    var invalid = []
+    for(var i = 0; i < queries.length; ++i){
+        var query = queries[i]
+        var sols = search(query, false)
+        if(sols.length == 0){
+            invalid.push(query)
+        }
+    }
+    return invalid
 }
 
 /*
@@ -256,26 +322,31 @@ function verifyQuery(query, word){
  ["rattiest", "reddened", "riffraff", "russians", "ruttiest"]
 
  Note that 'riffraff' is currently returned so it does not enforce by
- default that the letter variables are unique (i.e. 6 and f are both 'f')
- TODO implement unique constraint
+ default that the letter variables are unique (i.e. 6 and 3 are both 'f')
+
+ If the known constraints map is given e.g. { f : 3, t : 6 } then the
+ result will make sure each letter corresponds to a unique number and will not
+ override any of the letters given in the known constraints map
 
 */
-function search(query){
+function search(query, unique, known){
 
+    var words = WORDS_LEN[query.length]
     var solutions = []
-    for(var i = 0; i < words.length; ++i){
 
-        var word = words[i].trim()
-        // Requires the same length
-        if(word.length == query.length){
-            if(verifyQuery(query, word)){
-                solutions.push( word )
+    if(words){
+        for(var i = 0; i < words.length; ++i){
+            var word = words[i].trim()
+            // Requires the same length
+            if(word.length == query.length){
+                if(verifyQuery(query, word, unique, known)){
+                    solutions.push( word )
+                }
             }
         }
     }
 
     return solutions
-
 }
 
 // first letter must be included
@@ -341,9 +412,9 @@ function searchAnagrams(letters){
     var startTime = Date.now()
 
     var solutions = []
-    for(var i = 0; i < words.length; ++i){
+    for(var i = 0; i < WORDS.length; ++i){
 
-        var word = words[i].trim()
+        var word = WORDS[i].trim()
         // Requires the first letter
         if(word.length >= 4 && word.indexOf(letters[0]) > 0){
             // Check other letters and that they are used only once
@@ -416,14 +487,27 @@ var test5x5B = [
 var startTime = Date.now()
 
 // loaded dictionary words ..
-var words = []
-var wordMap = {}
-function loadWords(rawData){
+var WORDS = []
+var WORD_SET = {}
+var WORDS_LEN = {}
 
-    words = rawData.split('\n')
-    for(var i = 0; i < words.length; ++i){
-        wordMap[words[i]] = words[i]
+function loadWords(rawData){
+    var processed = []
+    WORDS = rawData.split('\n')
+    for(var i = 0; i < WORDS.length; ++i){
+        var w = WORDS[i].replace(/[^a-zA-Z]/,"").toLowerCase()
+        if(!WORD_SET[w]){
+            WORD_SET[w] = w
+            processed.push(w)
+        }
+        var lenSet = WORDS_LEN[w.length]
+        if(!lenSet){
+            lenSet = []
+            WORDS_LEN[w.length] = lenSet
+        }
+        lenSet.push(w)
     }
+    WORDS = processed
 
     var endTime = Date.now()
 
@@ -431,4 +515,4 @@ function loadWords(rawData){
 
 }
 
-$(function(){ $.get("../data/aspell-acceptable.txt", loadWords); })
+$(function(){ $.get("../data/aspell-seldom-used.txt", loadWords); })

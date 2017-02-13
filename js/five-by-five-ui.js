@@ -60,7 +60,7 @@ function solveHandler(event){
     var queries = getGridQueries()
     console.log("queries:", prettyQueries( queries ) )
 
-    var solved = solve( queries )
+    var solved = solve( queries, false )
     console.log("solution:", prettyQueries( solved ) )
     if(solved){
         applySolution( solved )

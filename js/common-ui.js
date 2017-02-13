@@ -6,6 +6,7 @@ var LOWER_Y = "y".charCodeAt(0)
 var UPPER_Y = "Y".charCodeAt(0)
 var LOWER_Z = "z".charCodeAt(0)
 var UPPER_Z = "Z".charCodeAt(0)
+var DOT_BLACK_CELL = 190
 var BACKSPACE = 8
 var TAB = 9
 var RETURN = 13
@@ -34,9 +35,10 @@ function getGrid(dimx,dimy){
 }
 
 function coords(cell){
-    var coords = cell.id.split("-")
+    var coords = cell.id.split("-"), suffix = ""
     var x = parseInt(coords[0]),  y = parseInt(coords[1])
-    return [x,y]
+    if(coords.length > 2) suffix = coords[2]
+    return [x,y,suffix]
 }
 
 /*
@@ -68,10 +70,11 @@ function focusPrev(that){
 /*
   Handle an arrow key, focussing up or down, left or right.
 */
-function focusDirection(dimx, dimy, event,key){
+function focusDirection(dimx, dimy, event, key){
     var id = $( event.currentTarget ).attr("id")
     var coords = id.split("-" )
     var x = parseInt(coords[0]), y = parseInt(coords[1])
+    var suffix = coords[2]
     switch(key){
     case UP:
         y = (y - 1 >= 0) ? y - 1 : y
@@ -86,7 +89,9 @@ function focusDirection(dimx, dimy, event,key){
         x = (x + 1 < dimx) ? x + 1 : x
         break;
     }
-    $("#" + x + "-" + y).focus()
+    var tid = "#" + x + "-" + y
+    if(suffix) tid = tid + "-" + suffix
+    $(tid).focus()
 }
 
 /*
@@ -122,9 +127,10 @@ function gridKeyHandlerFactory(dimx, dimy, options){
         if(k != TAB){
             event.preventDefault()
         }
-
+        var change = false
         var accept = acceptfn(event)
         if(accept != null){
+            change = true
             if(contentfn){
                 contentfn(event.currentTarget, accept)
             } else {
@@ -133,6 +139,7 @@ function gridKeyHandlerFactory(dimx, dimy, options){
             $( event.currentTarget ).focus()
 
         } else if(k == SPACE ) {
+            change = true
             $( event.currentTarget ).html("")
             focusNext($(this))
 
@@ -140,11 +147,13 @@ function gridKeyHandlerFactory(dimx, dimy, options){
             focusNext($(this))
 
         } else if(k == BACKSPACE ) {
+            change = true
             // Backspace will clear and focus previous square
             $( event.currentTarget ).html("")
             focusPrev($(this))
 
         } else if(k == DEL) {
+            change = true
             // DEL clears current square
             $( event.currentTarget ).html("")
 
@@ -152,11 +161,26 @@ function gridKeyHandlerFactory(dimx, dimy, options){
             focusDirection(dimx, dimy, event, k)
 
         }
-    }
 
-    if(queuefn) {
-        queuefn().push(k)
+        if(queuefn && change) {
+            console.log("queuing")
+            queuefn().push(k)
+        }
     }
+}
+
+function showWords(solutions){
+    var words = []
+    for(var i = 0; i < solutions.length; ++i){
+        var solution = solutions[i]
+        var word = ""
+        for(var j = 0; j < solution.length; ++j){
+            var part = solution[j]
+            word += part[1]
+        }
+        words.push(word)
+    }
+    renderResults(words)
 }
 
 function renderResults(results){
@@ -191,10 +215,11 @@ function flash(clazz){
     setTimeout(function(){ elms.toggleClass(clazz); }, delay * 3)
 }
 
-function flashGrid(){
+function flashGrid(clazz){
+    if(!clazz) clazz = "alert"
     var delay = 150
     var puzzle = $("#puzzle-grid")
-    puzzle.addClass("alert")
-    flash("alert")
-    setTimeout(function(){ puzzle.toggleClass("alert"); }, delay * 4)
+    puzzle.addClass(clazz)
+    flash(clazz)
+    setTimeout(function(){ puzzle.toggleClass(clazz); }, delay * 4)
 }
