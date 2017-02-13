@@ -294,6 +294,7 @@ function clearValidation(){
 function clearHandler(){
     saveState()
     clearLetters()
+    clearValidation()
 }
 
 function newHandler(){
