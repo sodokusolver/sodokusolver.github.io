@@ -20,3 +20,11 @@ Nine letters is a newspaper word game where you have to think of as many words a
 The center letter must always be used and the other letters can only be used once. The found words should be 4 or more letters.
 
 This implementation loads a plain text file of english words and tries to search through efficiently without creating a large index
+
+# Five by Five
+
+[Five by Five here](https://sodokusolver.github.io/five-by-five.html)
+
+Another word game, like a small crossword without clues where you have to find words which will fit in all directions.
+
+This implementation uses a constrained backtracking search which can eliminate invalid words quickly. 
