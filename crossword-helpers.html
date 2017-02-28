@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="css/common.css" />
+    <style type="text/css" media="screen">
+
+.help ul { list-style: none; }
+
+.intro {
+    width: 600px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.black {
+    background-color: #000000;
+}
+
+.black:focus {
+    background-color: #ababab;
+}
+
+sup {
+  position: relative;
+  top: -6;
+  left: -6;
+}
+
+#superscript-mode {
+  width : 200px;
+}
+
+#puzzle-grid {
+  margin-bottom: 10px;
+}
+
+#results {
+    max-width: 250px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+input {
+  font-size: 48px; 
+  min-width: 8em;
+  text-transform:uppercase;
+}
+    </style>
+  </head>
+    <body>
+      <h1>Word Search</h1>
+
+      <div> 
+        <input id="word-search" name="word-search" type="text"/>
+        <div><i>Use ? for unknown letters.</i></div>
+        <!--div><i>Use * to search many unknown letters (a glob). e.g. MO* => MONKEY, MOAT, ... </i></div-->        
+        <div><i><b>Advanced:</b> Use numbers 1-9 as references for unknown letters that must be the same e.g. BA22? => BATTY, BALLS, ... </i></div>        
+      </div>
+      
+      <div id="results"></div>
+
+    </body>
+
+    <!-- script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script-->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/common-ui.js"></script>    
+    <script src="js/word-search.js"></script>
+    <script src="js/crossword-helpers.js"></script>
+
+</html>

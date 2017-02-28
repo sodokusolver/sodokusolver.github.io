@@ -1,80 +1,23 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="css/common.css" />
+    <title>Puzzle Solvers and Helpers</title>
+    <style>
+      body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+      }
+    </style>
   </head>
-    <body>
-    <h1>sodoku solver</h1>
-      <table id="puzzle-grid">
-
-      <col id="col-0" />
-      <col id="col-1" />
-      <col id="col-2" class="div-right"/>
-      <col id="col-3" />
-      <col id="col-4" />
-      <col id="col-5" class="div-right"/>
-      <col id="col-6" />
-      <col id="col-7" />
-      <col id="col-8" />
-
-      <tr id="row-0">
-        <td id="0-0"></td><td id="1-0"></td><td id="2-0"></td> <td id="3-0"></td><td id="4-0"></td><td id="5-0"></td> <td id="6-0"></td><td id="7-0"></td><td id="8-0"></td>
-      </tr>
-      <tr id="row-1">
-        <td id="0-1"></td><td id="1-1"></td><td id="2-1"></td> <td id="3-1"></td><td id="4-1"></td><td id="5-1"></td> <td id="6-1"></td><td id="7-1"></td><td id="8-1"></td>
-      </tr>
-      <tr id="row-2" class="div-bottom">
-        <td id="0-2"></td><td id="1-2"></td><td id="2-2"></td> <td id="3-2"></td><td id="4-2"></td><td id="5-2"></td> <td id="6-2"></td><td id="7-2"></td><td id="8-2"></td>
-      </tr>
-
-      <tr id="row-3">
-        <td id="0-3"></td><td id="1-3"></td><td id="2-3"></td> <td id="3-3"></td><td id="4-3"></td><td id="5-3"></td> <td id="6-3"></td><td id="7-3"></td><td id="8-3"></td>
-      </tr>
-      <tr id="row-4">
-        <td id="0-4"></td><td id="1-4"></td><td id="2-4"></td> <td id="3-4"></td><td id="4-4"></td> <td id="5-4"></td><td id="6-4"></td><td id="7-4"></td><td id="8-4"></td>
-      </tr>
-      <tr id="row-5" class="div-bottom">
-        <td id="0-5"></td><td id="1-5"></td><td id="2-5"></td> <td id="3-5"></td><td id="4-5"></td><td id="5-5"></td> <td id="6-5"></td><td id="7-5"></td><td id="8-5"></td>
-      </tr>
-
-      <tr id="row-6">
-        <td id="0-6"></td><td id="1-6"></td><td id="2-6"></td> <td id="3-6"></td><td id="4-6"></td><td id="5-6"></td> <td id="6-6"></td><td id="7-6"></td><td id="8-6"></td>
-      </tr>
-      <tr id="row-7">
-        <td id="0-7"></td><td id="1-7"></td><td id="2-7"></td> <td id="3-7"></td><td id="4-7"></td><td id="5-7"></td> <td id="6-7"></td><td id="7-7"></td><td id="8-7"></td>
-      </tr>
-      <tr id="row-8">
-        <td id="0-8"></td><td id="1-8"></td><td id="2-8"></td> <td id="3-8"></td><td id="4-8"></td><td id="5-8"></td> <td id="6-8"></td><td id="7-8"></td><td id="8-8"></td>
-      </tr>
-
-</table>
-
-      <div id="buttons">
-      <input id="solveone" class="btn" type="button" name="solveone" value="Solve One"/>
-      <input id="solveall" class="btn" type="button" name="Solveall" value="Solve All"/>
-      <input id="clear" class="btn" type="button" name="clear" value="Clear"/>
-      <input id="save" class="btn" type="button" name="save" value="Save"/>
-      <input id="load" class="btn" type="button" name="load" value="Load"/>
-    </div>
-
-    <div>
-      <ul>
-        <li>Use &#8593, &#8595, &#8592, &#8594 or Tab to navigate.</li>
-        <li>Enter <i>1-9</i> in the squares.</li>
-        <li><i>Space, Delete and Backspace</i> will empty the square.</li>
-        <li><b>Solve One</b> button will fill one square, if possible.</li>
-        <li><b>Solve All</b> button will fill all squares, if possible.</li>
-        <li><b>Clear</b> button will empty all squares.</li>
-        <li><b>Save</b> button will save the current squares.</li>
-        <li><b>Load</b> button will load the saved squares.</li>
-      </ul>
-    </div>
-
-</body>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <!-- script src="js/jquery-3.1.1.min.js"></script-->
-    <script src="js/sodoku.js"></script>
-    <script src="js/common-ui.js"></script>
-    <script src="js/sodoku-ui.js"></script>
-
+  <body>
+    <h1>Puzzle Solvers and Helpers</h1>    
+    <ul>
+      <li><a href="./crossword-helpers.html">Crossword Helpers</a></li>      
+      <li><a href="./sodoku.html">Sodoku Solver</a></li>
+      <li><a href="./code-cracker.html">Code Cracker</a></li>
+      <li><a href="./five-by-five.html">Five by Five</a></li>
+      <li><a href="./nine-letters.html">Nine Letters</a></li>
+    </ul>
+  </body>
 </html>
