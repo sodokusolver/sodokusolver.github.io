@@ -73,10 +73,13 @@ function updateRoots(roots){
     }))
 }
 
+var depth = 0
+
 function update(){
 
     $("#user-quadratic").hide()
     $("#user-formula").hide()
+    ++depth
 
     var eqTeX = quadraticTempl({ a : a, b : b, c : c })
     $("#user-quadratic").text(eqTeX)
@@ -88,8 +91,10 @@ function update(){
     MathJax.Hub.Queue(["Typeset",MathJax.Hub,"user-formula"]);
 
     setTimeout(function(){
-        $("#user-quadratic").show()
-        $("#user-formula").show()
+        if(--depth == 0 ){
+            $("#user-quadratic").show()
+            $("#user-formula").show()
+        }
     }, 350)
 
     var roots = solveFormula(a, b, c)
@@ -178,4 +183,5 @@ $(function(){
     $("#a").change(changeHandler)
     $("#b").change(changeHandler)
     $("#c").change(changeHandler)
+
 })
