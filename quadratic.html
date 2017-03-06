@@ -1,0 +1,90 @@
+<html>
+  <head>
+
+      <style type="text/css">
+       body {
+           text-align: center; margin: 5em 0 0 0; vertical-align: middle
+       }
+
+       #content {
+           width: 760px; text-align: left; margin: 0 auto
+       }
+
+       input {
+           font-size: 15px;
+           width: 6em;
+       }
+
+       #quadratic-container {
+           height: 75px;
+       }
+
+       #formula-container {
+           height: 75px;
+       }
+
+      </style>
+
+      <script type="text/x-mathjax-config">
+       MathJax.Hub.Config({
+           extensions: ["tex2jax.js"],
+           jax: ["input/TeX", "output/HTML-CSS"],
+           tex2jax: {
+               inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+               displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+               processEscapes: true
+           },
+           "HTML-CSS": { availableFonts: ["TeX"] }
+       });
+      </script>
+      <script type="text/javascript" async
+              src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+      </script>
+      <!-- script type="text/javascript" async src="js/MathJax/MathJax.js?config=TeX-AMS_HTML"></script -->
+
+  </head>
+  <body>
+    <div id="content">
+      <h1><a href="https://en.wikipedia.org/wiki/Quadratic_formula">quadratic formula</a></h1>
+
+      Solve a quadratic equation of the form:
+
+      \[  ax^2 + bx + c = 0  \]
+
+      With the quadratic formula:
+      <p> \[ \frac{-b\pm\sqrt{b^2-4ac}}{2a} \] </p>
+      <br><br>
+
+      a = <input id="a" name ="a" value="1" />
+      b = <input id="b" name ="b" value="0" />
+      c = <input id="c" name ="c" value="0" />
+
+      <br><br>
+      <div id="quadratic-container">
+          User quadratic:
+          <span id="user-quadratic"> \[  x^2 + bx + c = 0  \] </span>
+      </div>
+
+      <div id="formula-container">
+          User formula:
+          <span id="user-formula"> \[ \frac{-b\pm\sqrt{b^2-4ac}}{2a} \] </span>
+      </div>
+
+      <div>Solutions: <span id="roots">-</span></div>
+      <br><br>
+      Geometric plot:
+      <div id="graph-container"> </div>
+
+    </div>
+  </body>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.7/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+  <!-- script src="js/jquery-3.1.1.min.js"></script -->
+  <!-- script src="js/p5.min.js"></script -->
+  <!-- script src="js/underscore.js"></script -->
+  <script src="js/numericInput.min.js"></script>
+  <script src="js/quadratic.js"></script>
+
+</html>
