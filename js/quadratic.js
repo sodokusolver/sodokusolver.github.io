@@ -175,11 +175,6 @@ function draw() {
 }
 
 $(function(){
-    var opts = { allowFloat: true, allowNegative: true }
-    $("#a").numericInput(opts)
-    $("#b").numericInput(opts)
-    $("#c").numericInput(opts)
-
     $("#a").change(changeHandler)
     $("#b").change(changeHandler)
     $("#c").change(changeHandler)
