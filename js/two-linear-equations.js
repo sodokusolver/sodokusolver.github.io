@@ -31,9 +31,8 @@ var xsolvedTempl = _.template('\\[ x = {{x}} \\]')
 
 var solveY1 = '\\[ y = {{cdivb}} - \\frac{ {{a}}x }{ {{b}} } '
 var solveY2 = ' = {{cdivb}} - \\frac{ {{a}} \\cdot {{x}} } { {{b}} } '
-var solveY3 = ' = {{cdivb}} - \\frac{ {{a}} \\cdot {{x}} } { {{b}} } '
-var solveY4 = ' = {{cdivb}} - {{adotxdivb}} = {{y}} \\]'
-var solveYTempl = _.template(solveY1 + solveY2 + solveY3 + solveY4 )
+var solveY3 = ' = {{cdivb}} - {{adotxdivb}} = {{y}} \\]'
+var solveYTempl = _.template(solveY1 + solveY2 + solveY3  )
 
 var xySolvedTempl = _.template('\\[ x = {{x}}, y = {{y}} \\]')
 
