@@ -10,7 +10,7 @@ var quadraticTempl = _.template('\\[ {{a}}\\cdot x^2 + {{b}}\\cdot x + {{c}} = 0
 
 // \[ \frac{-b\pm\sqrt{b^2-4ac}}{2a} \]
 var formulaTempl = _.template(
-    '\\[ \\frac{-{{b}}\\pm\\sqrt{ {{b}} ^2-4 \\cdot {{a}} \\cdot {{c}} }}{2 \\cdot {{a}} } \\]'
+    '\\[ \\frac{-({{b}})\\pm\\sqrt{ {{b}} ^2-4 \\cdot {{a}} \\cdot {{c}} }}{2 \\cdot {{a}} } \\]'
 )
 
 var tupleTempl = _.template('({{a}}, {{b}})')

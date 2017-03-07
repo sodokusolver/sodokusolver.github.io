@@ -1,0 +1,124 @@
+<html>
+  <head>
+
+      <style type="text/css">
+       body {
+           text-align: center; margin: 5em 0 0 0; vertical-align: middle
+       }
+
+       #content {
+           width: 760px; text-align: left; margin: 0 auto
+       }
+
+       input {
+           font-size: 15px;
+           width: 6em;
+       }
+
+       .eqn { height: 70px; }
+       .large-eqn { height: 150px; }
+
+      </style>
+
+      <script type="text/x-mathjax-config">
+       MathJax.Hub.Config({
+           extensions: ["tex2jax.js"],
+           jax: ["input/TeX", "output/HTML-CSS"],
+           tex2jax: {
+               inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+               displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+               processEscapes: true
+           },
+           "HTML-CSS": { availableFonts: ["TeX"] }
+       });
+      </script>
+      <script type="text/javascript" async
+           src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+           </script>
+      <script type="text/javascript" async src="js/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+
+  </head>
+  <body>
+      <div id="content">
+          <h1><a href="https://en.wikipedia.org/wiki/System_of_linear_equations">system of two linear equations</a></h1>
+
+          Solve a system of equations of the form:
+
+          \[  ax + by = c  \]
+          \[  dx + ey = f  \]
+
+          <br><br>
+
+          <i>a</i> = <input id="a" type="number" step="1" name ="a" value="5" />
+          <i>b</i> = <input id="b" type="number" step="1" name ="b" value="2" />
+          <i>c</i> = <input id="c" type="number" step="1" name ="c" value="16" />
+          <br><br>
+          <i>d</i> = <input id="d" type="number" step="1" name ="d" value="8" />
+          <i>e</i> = <input id="e" type="number" step="1" name ="e" value="-3" />
+          <i>f</i> = <input id="f" type="number" step="1" name ="f" value="7" />
+
+          <br><br>
+          <div id="user-eq-container" class="eqn">
+              User equations:
+              <span id="user-eq1"> \[ 5x + 2y = 16 \] </span> 
+              <span id="user-eq2"> \[ 8x - 3y = 7 \] </span>
+          </div>
+          <br><br>
+
+          <div id="isolate-y-container" class="eqn">
+              Isolate <i>y</i> in first equation:
+              <span id="isolate-y-eq1"> \[ 2y = 16 - 5x \] </span>
+              <span id="isolate-y-eq2"> \[ y = 8 - \frac{5x}{2} \] </span>
+          </div>
+          <br><br><br>
+
+          <div id="substitute-y-container" class="eqn">
+              Substitue <i>y</i> in second equation:
+              <span id="substitute-y-eq"> \[ 8x -3 \left( 8 - \frac{5x}{2} \right) = 7 \] </span>
+          </div>
+          <br><br>
+
+          <div id="distribute-e-container" class="eqn">
+              Distribute <i>e</i>:
+              <span id="distribute-e-eq"> \[ 8x -24 + \frac{15x}{2} = 7 \] </span>
+          </div>
+          <br><br>
+
+          <div id="combine-terms-container" class="eqn">
+              Combine terms:
+              <span id="combine-terms-eq"> \[ 8x + \frac{15x}{2} = 31 \] </span>
+          </div>
+          <br><br>
+
+          <div id="common-denom-container" class="large-eqn">
+              Make common denominator:
+              <span id="common-denom-eq1"> \[ \frac{16x}{2} + \frac{15x}{2} = 31 \] </span>
+              <span id="common-denom-eq2"> \[ \frac{31x}{2} = 31 \] </span>
+              <span id="x-solved-eq"> \[ x = 2 \] </span>
+          </div>
+          <br><br>
+
+          <div id="solve-y-container" class="eqn">
+              Solve for <i>y</i> in isolated equation:
+              <span id="solve-y-eq"> \[ y = 8 - \frac{5x}{2} = 8 - \frac{5 \cdot 2}{2} = 8 - 5 = 3 \] </span>
+          </div>
+          <br><br>
+
+          <div id="solution-container" class="eqn">
+              Solution for <i>x</i> and <i>y</i>:
+              <span id="x-y-eq"> \[ x = 2, y = 3 \] </span>
+          </div>
+          <br><br>
+
+      </div>
+  </body>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.7/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+  <!-- script src="js/jquery-3.1.1.min.js"></script -->
+  <!-- script src="js/p5.min.js"></script -->
+  <!-- script src="js/underscore.js"></script -->
+  <script src="js/two-linear-equations.js"></script>
+
+</html>
